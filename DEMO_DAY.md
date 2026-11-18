@@ -19,7 +19,7 @@ You will use **3 windows**: two terminals and a browser.
 
 **Step 1. Start the app (Terminal 1)**
 ```
-cd tray-security\backend
+cd backend
 python main.py
 ```
 Wait for `Uvicorn running on http://0.0.0.0:8000`.
