@@ -1,4 +1,4 @@
-"""Tray Security API (FastAPI + SQLite).
+"""Kade Sentinel API (FastAPI + SQLite).
 
 Tray status is DERIVED from the tables on every read, never stored:
     BREACH  - the tray has at least one unacknowledged alert
@@ -25,7 +25,7 @@ async def lifespan(_: FastAPI):
     yield
 
 
-app = FastAPI(title="Tray Security", lifespan=lifespan)
+app = FastAPI(title="Kade Sentinel", lifespan=lifespan)
 api = APIRouter(prefix="/api")
 
 

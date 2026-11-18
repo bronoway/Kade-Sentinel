@@ -74,7 +74,7 @@ export default function App() {
     <main>
       <header className="top">
         <div>
-          <h1>Tray Security</h1>
+          <h1 lang="si-LK">කඩේ Sentinel</h1>
           <p className="summary">
             {trays.length} {trays.length === 1 ? "tray" : "trays"} monitored: {count("SAFE")} safe, {count("GRANTED")} granted,{" "}
             {count("BREACH")} breached

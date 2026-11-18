@@ -1,4 +1,4 @@
-// Tray Security - ESP32 + PIR node.
+// Kade Sentinel - ESP32 + PIR node.
 // On each motion event: POST /api/trays/<id>/motion -> {"granted":true|false}.
 // The backend logs the alert itself when access is not granted.
 #include <WiFi.h>

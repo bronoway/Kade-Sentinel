@@ -1,4 +1,4 @@
-# Retail Store Item Tray Security
+# Kade Sentinel
 
 A small PIR-based system that stops walk-away theft from open item trays in small shops. The storekeeper **grants** a customer temporary access to a tray from a web dashboard; if anyone reaches that tray **without** a grant, the tray's ESP32 sounds a buzzer and the dashboard raises a breach alert.
 

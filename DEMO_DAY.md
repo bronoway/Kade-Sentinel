@@ -6,7 +6,7 @@ Keep this open on a second screen. Everything below is in the order you do it.
 
 ## A. Tonight (do this once, 10 minutes)
 
-- [ ] Unzip the latest `tray-security.zip` into a **fresh** folder. Open it in VS Code.
+- [ ] Unzip the latest `kade-sentinel.zip` into a **fresh** folder. Open it in VS Code.
 - [ ] Run the system once end to end (Section B) and make sure it works.
 - [ ] Charge the laptop. Plug the charger into your bag.
 - [ ] Windows: Settings > Power > set **Sleep to Never** while plugged in.
