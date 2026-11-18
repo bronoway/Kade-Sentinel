@@ -1,0 +1,93 @@
+/* Neo-brutalist theme: thick black outlines, hard offset shadows, flat saturated colour, square corners.
+   Font: neo-grotesque system stack (Helvetica Neue / Helvetica / Arial), so it works offline. */
+:root {
+  --bg: #efefe9; --card: #ffffff; --ink: #000000; --muted: #3d3d3d;
+  --SAFE: #3ddc84; --GRANTED: #ffd400; --BREACH: #ff3b30;
+  --focus: #0033ff;
+  --bw: 3px;                 /* border width */
+  --shadow: 6px 6px 0 var(--ink);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 17px/1.45 "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
+  background-image: radial-gradient(var(--ink) 1px, transparent 1px);
+  background-size: 22px 22px; background-attachment: fixed;
+}
+main { max-width: 920px; margin: 0 auto; padding: 28px 16px 56px; }
+h1, h2, p { margin: 0; }
+small { display: block; color: var(--muted); font-size: 13px; font-weight: 500; }
+:focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
+
+/* Header */
+.top { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+h1 { font-size: clamp(2.4rem, 8vw, 4rem); font-weight: 900; letter-spacing: -0.045em; line-height: 0.95; }
+.summary { margin-top: 10px; font-weight: 700; }
+.live { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; background: var(--card); border: var(--bw) solid var(--ink); box-shadow: 4px 4px 0 var(--ink); padding: 6px 12px; }
+.dot { width: 12px; height: 12px; background: var(--SAFE); border: 2px solid var(--ink); }
+.live.off { background: var(--BREACH); }
+.live.off .dot { background: var(--ink); }
+
+.notice { background: var(--BREACH); border: var(--bw) solid var(--ink); box-shadow: 4px 4px 0 var(--ink); padding: 10px 14px; margin-bottom: 16px; font-weight: 800; }
+.banner { background: var(--BREACH); border: var(--bw) solid var(--ink); box-shadow: var(--shadow); padding: 16px 20px; margin-bottom: 24px; font-weight: 900; font-size: 1.2rem; letter-spacing: -0.01em; }
+
+/* Tray card: solid colour status plate + details */
+.trays { display: grid; gap: 28px; }
+.tray { display: grid; grid-template-columns: 170px 1fr; background: var(--card); border: var(--bw) solid var(--ink); box-shadow: var(--shadow); }
+.plate { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 20px 12px; text-align: center; font-weight: 900; font-size: 1.6rem; line-height: 1.05; letter-spacing: -0.03em; border-right: var(--bw) solid var(--ink); background: var(--tone); color: var(--ink); }
+.tray.SAFE { --tone: var(--SAFE); }
+.tray.GRANTED { --tone: var(--GRANTED); }
+.tray.BREACH { --tone: var(--BREACH); box-shadow: 10px 10px 0 var(--ink); }
+.tray.BREACH .plate { animation: flash 0.7s steps(1) infinite; }
+@keyframes flash { 50% { background: var(--ink); color: var(--BREACH); } }
+
+.body { padding: 18px 22px 22px; display: grid; gap: 4px; align-content: start; }
+.body h2 { font-size: 1.6rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; }
+.where { font-weight: 600; color: var(--muted); }
+.hint { margin-top: 8px; font-weight: 500; }
+.timer { margin-top: 10px; }
+.timer strong { font-size: 2rem; font-weight: 900; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.bar { height: 16px; background: var(--card); border: 2px solid var(--ink); margin-top: 6px; }
+.bar i { display: block; height: 100%; background: var(--ink); transition: width 1s linear; }
+
+/* Buttons: hard shadow that "presses" flat */
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+button {
+  font: inherit; font-weight: 800; padding: 10px 14px; cursor: pointer;
+  background: var(--card); color: var(--ink);
+  border: var(--bw) solid var(--ink); border-radius: 0; box-shadow: 4px 4px 0 var(--ink);
+  transition: transform .08s, box-shadow .08s;
+}
+button:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+button:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); }
+button.primary { background: var(--ink); color: #fff; }
+button.demo { border-style: dashed; font-weight: 600; box-shadow: none; margin-left: auto; }
+button.demo:hover { box-shadow: 3px 3px 0 var(--ink); }
+
+/* Alert log */
+.log { margin-top: 44px; }
+.log h2 { font-size: 1.8rem; font-weight: 900; letter-spacing: -0.035em; margin-bottom: 14px; }
+.log ul { list-style: none; margin: 0; padding: 0; background: var(--card); border: var(--bw) solid var(--ink); box-shadow: var(--shadow); }
+.log li { display: grid; grid-template-columns: 120px 1fr auto; gap: 14px; align-items: center; padding: 12px 16px; }
+.log li + li { border-top: var(--bw) solid var(--ink); }
+.log time strong { font-variant-numeric: tabular-nums; font-weight: 800; }
+.what { font-weight: 800; }
+.chip { font-size: 13px; font-weight: 800; padding: 3px 10px; border: 2px solid var(--ink); }
+.chip.open { background: var(--BREACH); }
+.chip.done { background: var(--SAFE); }
+.empty { background: var(--card); border: var(--bw) dashed var(--ink); padding: 22px; font-weight: 600; }
+.note { font-size: 13px; font-weight: 600; margin-top: 12px; }
+
+@media (max-width: 600px) {
+  .tray { grid-template-columns: 1fr; }
+  .plate { flex-direction: row; justify-content: flex-start; padding: 12px 16px; border-right: 0; border-bottom: var(--bw) solid var(--ink); }
+  .log li { grid-template-columns: 1fr auto; }
+  .log li time { grid-column: 1 / -1; display: flex; gap: 8px; align-items: baseline; }
+  button.demo { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tray.BREACH .plate { animation: none; }
+  .bar i, button { transition: none; }
+}

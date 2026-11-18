@@ -1,0 +1,1 @@
+# No external libraries required (ArduinoJson dropped - the response is matched directly).

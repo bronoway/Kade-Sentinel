@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "author": "Tray Security Project",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-esp32-devkit-v1",
+      "id": "esp",
+      "top": 80,
+      "left": 30,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-pir-motion-sensor",
+      "id": "pir",
+      "top": -110,
+      "left": 30,
+      "attrs": {
+        "delayTime": "5",
+        "inhibitTime": "1.2",
+        "retrigger": "0"
+      }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "buzzer",
+      "top": 90,
+      "left": 290,
+      "attrs": {
+        "volume": "0.2"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "red",
+      "top": -70,
+      "left": 280,
+      "attrs": {
+        "color": "red",
+        "label": "Unauthorised motion"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "green",
+      "top": -70,
+      "left": 380,
+      "attrs": {
+        "color": "green",
+        "label": "Authorised motion"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 0,
+      "left": 270,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 0,
+      "left": 370,
+      "attrs": {
+        "value": "220"
+      }
+    }
+  ],
+  "connections": [
+    [
+      "esp:VIN",
+      "pir:VCC",
+      "red",
+      []
+    ],
+    [
+      "esp:GND.1",
+      "pir:GND",
+      "black",
+      []
+    ],
+    [
+      "esp:D27",
+      "pir:OUT",
+      "green",
+      []
+    ],
+    [
+      "esp:D26",
+      "buzzer:2",
+      "orange",
+      []
+    ],
+    [
+      "esp:GND.1",
+      "buzzer:1",
+      "black",
+      []
+    ],
+    [
+      "esp:D25",
+      "r1:1",
+      "red",
+      []
+    ],
+    [
+      "r1:2",
+      "red:A",
+      "red",
+      []
+    ],
+    [
+      "red:C",
+      "esp:GND.1",
+      "black",
+      []
+    ],
+    [
+      "esp:D33",
+      "r2:1",
+      "green",
+      []
+    ],
+    [
+      "r2:2",
+      "green:A",
+      "green",
+      []
+    ],
+    [
+      "green:C",
+      "esp:GND.1",
+      "black",
+      []
+    ],
+    [
+      "esp:TX0",
+      "$serialMonitor:RX",
+      "",
+      []
+    ],
+    [
+      "esp:RX0",
+      "$serialMonitor:TX",
+      "",
+      []
+    ]
+  ],
+  "dependencies": {}
+}
