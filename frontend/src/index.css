@@ -1,5 +1,4 @@
-/* Neo-brutalist theme: thick black outlines, hard offset shadows, flat saturated colour, square corners.
-   Font: neo-grotesque system stack (Helvetica Neue / Helvetica / Arial), so it works offline. */
+/* Neo-brutalist theme: thick black outlines, hard offset shadows, flat saturated colour, square corners. */
 :root {
   --bg: #efefe9; --card: #ffffff; --ink: #000000; --muted: #3d3d3d;
   --SAFE: #3ddc84; --GRANTED: #ffd400; --BREACH: #ff3b30;
@@ -12,7 +11,7 @@
 * { box-sizing: border-box; }
 body {
   margin: 0; background: var(--bg); color: var(--ink);
-  font: 17px/1.45 "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
+  font: 17px/1.45 "Space Grotesk", "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
   background-image: radial-gradient(var(--ink) 1px, transparent 1px);
   background-size: 22px 22px; background-attachment: fixed;
 }
