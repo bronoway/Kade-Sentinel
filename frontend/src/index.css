@@ -1,4 +1,3 @@
-/* Neo-brutalist theme: thick black outlines, hard offset shadows, flat saturated colour, square corners. */
 :root {
   --bg: #efefe9; --card: #ffffff; --ink: #000000; --muted: #3d3d3d;
   --SAFE: #3ddc84; --GRANTED: #ffd400; --BREACH: #ff3b30;
@@ -20,7 +19,6 @@ h1, h2, p { margin: 0; }
 small { display: block; color: var(--muted); font-size: 13px; font-weight: 500; }
 :focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
 
-/* Header */
 .top { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
 h1 { font-size: clamp(2.4rem, 8vw, 4rem); font-weight: 900; letter-spacing: -0.045em; line-height: 0.95; }
 .summary { margin-top: 10px; font-weight: 700; }
@@ -32,7 +30,6 @@ h1 { font-size: clamp(2.4rem, 8vw, 4rem); font-weight: 900; letter-spacing: -0.0
 .notice { background: var(--BREACH); border: var(--bw) solid var(--ink); box-shadow: 4px 4px 0 var(--ink); padding: 10px 14px; margin-bottom: 16px; font-weight: 800; }
 .banner { background: var(--BREACH); border: var(--bw) solid var(--ink); box-shadow: var(--shadow); padding: 16px 20px; margin-bottom: 24px; font-weight: 900; font-size: 1.2rem; letter-spacing: -0.01em; }
 
-/* Tray card: solid colour status plate + details */
 .trays { display: grid; gap: 28px; }
 .tray { display: grid; grid-template-columns: 170px 1fr; background: var(--card); border: var(--bw) solid var(--ink); box-shadow: var(--shadow); }
 .plate { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 20px 12px; text-align: center; font-weight: 900; font-size: 1.6rem; line-height: 1.05; letter-spacing: -0.03em; border-right: var(--bw) solid var(--ink); background: var(--tone); color: var(--ink); }
@@ -51,7 +48,6 @@ h1 { font-size: clamp(2.4rem, 8vw, 4rem); font-weight: 900; letter-spacing: -0.0
 .bar { height: 16px; background: var(--card); border: 2px solid var(--ink); margin-top: 6px; }
 .bar i { display: block; height: 100%; background: var(--ink); transition: width 1s linear; }
 
-/* Buttons: hard shadow that "presses" flat */
 .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
 button {
   font: inherit; font-weight: 800; padding: 10px 14px; cursor: pointer;
@@ -65,7 +61,6 @@ button.primary { background: var(--ink); color: #fff; }
 button.demo { border-style: dashed; font-weight: 600; box-shadow: none; margin-left: auto; }
 button.demo:hover { box-shadow: 3px 3px 0 var(--ink); }
 
-/* Alert log */
 .log { margin-top: 44px; }
 .log h2 { font-size: 1.8rem; font-weight: 900; letter-spacing: -0.035em; margin-bottom: 14px; }
 .log ul { list-style: none; margin: 0; padding: 0; background: var(--card); border: var(--bw) solid var(--ink); box-shadow: var(--shadow); }

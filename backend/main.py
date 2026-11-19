@@ -1,12 +1,3 @@
-"""Kade Sentinel API (FastAPI + SQLite).
-
-Tray status is DERIVED from the tables on every read, never stored:
-    BREACH  - the tray has at least one unacknowledged alert
-    GRANTED - the storekeeper granted access and it has not expired
-    SAFE    - otherwise (armed)
-
-Also serves the built React dashboard, so one process / one port / one tunnel runs everything.
-"""
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -48,8 +39,6 @@ def record_alert(con, tray_id: int) -> None:
     )
 
 
-# ---------- Dashboard ----------
-
 @api.get("/trays")
 def list_trays(con=Depends(get_db)):
     rows = con.execute(
@@ -70,7 +59,7 @@ def list_trays(con=Depends(get_db)):
             "name": r["name"],
             "location": r["location"],
             "status": "BREACH" if r["breach"] else "GRANTED" if r["granted_until"] else "SAFE",
-            "granted_until": r["granted_until"],  # UTC; null unless GRANTED/BREACH-with-grant
+            "granted_until": r["granted_until"],
         }
         for r in rows
     ]
@@ -99,7 +88,6 @@ def grant(tray_id: int, minutes: int = Query(2, ge=1, le=60), con=Depends(get_db
 
 @api.post("/trays/{tray_id}/reset")
 def reset(tray_id: int, con=Depends(get_db)):
-    """Acknowledge alerts (history is kept) and cancel any open grant, re-arming the tray."""
     require_tray(con, tray_id)
     with con:
         con.execute("UPDATE alerts SET acknowledged = 1 WHERE tray_id = ? AND acknowledged = 0", (tray_id,))
@@ -109,21 +97,14 @@ def reset(tray_id: int, con=Depends(get_db)):
 
 @api.post("/trays/{tray_id}/alert")
 def simulate_theft(tray_id: int, con=Depends(get_db)):
-    """Dashboard demo button: raise an alert regardless of any grant."""
     require_tray(con, tray_id)
     with con:
         record_alert(con, tray_id)
     return {"ok": True}
 
 
-# ---------- ESP32 ----------
-
 @api.post("/trays/{tray_id}/motion")
 def motion(tray_id: int, con=Depends(get_db)):
-    """Called by the PIR device on motion. One round trip: check the grant and, if none, log the alert.
-
-    Returns {"granted": true|false}. The firmware matches this exact compact JSON.
-    """
     require_tray(con, tray_id)
     granted = is_granted(con, tray_id)
     if not granted:
@@ -134,7 +115,6 @@ def motion(tray_id: int, con=Depends(get_db)):
 
 app.include_router(api)
 
-# Must be registered last so it never shadows /api. Absent until `npm run build`; API still works.
 if DIST.is_dir():
     app.mount("/", StaticFiles(directory=DIST, html=True), name="dashboard")
 

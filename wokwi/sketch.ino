@@ -1,11 +1,7 @@
-// Kade Sentinel - ESP32 + PIR node.
-// On each motion event: POST /api/trays/<id>/motion -> {"granted":true|false}.
-// The backend logs the alert itself when access is not granted.
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <HTTPClient.h>
 
-// Update when the Cloudflare quick tunnel restarts (or use http://<laptop-ip>:8000 on a real LAN). No trailing slash.
 const String BASE_URL = "https://encounter-starts-bits-selection.trycloudflare.com";
 constexpr int TRAY_ID = 1;
 
@@ -14,13 +10,12 @@ constexpr uint32_t INDICATOR_MS = 3000;   // how long an LED stays lit
 constexpr uint32_t ALARM_MS = 1000;       // buzzer duration
 constexpr uint32_t ALARM_HZ = 2500;
 constexpr uint32_t HTTP_TIMEOUT_MS = 5000;
-constexpr uint32_t RETRY_MS = 10000;      // resend an alert that could not be delivered
+constexpr uint32_t RETRY_MS = 10000;
 
 bool prevMotion = false;
-bool alertPending = false;                // fail-secure alert still waiting to reach the backend
+bool alertPending = false;
 uint32_t indicatorOff = 0, alarmOff = 0, lastRetry = 0;
 
-// ---- Buzzer: tone() only exists in Arduino-ESP32 core 3.x, so use LEDC directly for both cores ----
 #if ESP_ARDUINO_VERSION_MAJOR >= 3
   void buzzerInit()          { ledcAttach(BUZZER_PIN, ALARM_HZ, 8); }
   void buzzerTone(uint32_t f) { ledcWriteTone(BUZZER_PIN, f); }
@@ -39,7 +34,6 @@ void indicate(bool authorised) {
   }
 }
 
-// POST with an empty body. Returns the HTTP status (<=0 on network error) and fills `body`.
 int post(const String &path, String &body) {
   const String url = BASE_URL + path;
   HTTPClient http;
@@ -72,8 +66,6 @@ void handleMotion() {
     Serial.println(granted ? "AUTHORISED: green LED." : "UNAUTHORISED: red LED + buzzer. Alert logged by backend.");
     return;
   }
-  // Fail-secure: if we cannot learn whether access was granted, treat it as unauthorised
-  // and keep trying to deliver the alert so it still reaches the dashboard.
   Serial.println("UNKNOWN (backend unreachable): raising local alarm, will retry alert.");
   indicate(false);
   alertPending = true;

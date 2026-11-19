@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 
-// Same-origin: in production FastAPI serves this page, in dev Vite proxies /api (see vite.config.js).
 const API = "/api";
 const POLL_MS = 2000;
 const GRANT_MINUTES = 2;
@@ -11,7 +10,6 @@ const STATUS = {
   BREACH: { label: "Breach", hint: "Someone reached this tray without permission." },
 };
 
-// Backend timestamps are UTC ("...Z"); show them in the viewer's local time.
 const clock = (iso) => new Date(iso).toLocaleTimeString([], { hour: "numeric", minute: "2-digit", second: "2-digit" });
 const day = (iso) => new Date(iso).toLocaleDateString([], { day: "numeric", month: "short" });
 const mmss = (secs) => `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`;
@@ -56,7 +54,6 @@ export default function App() {
     };
   }, [refresh]);
 
-  // POST an action, then refresh immediately so the card changes without waiting for the next poll.
   const act = async (path) => {
     try {
       await request(path, { method: "POST" });
